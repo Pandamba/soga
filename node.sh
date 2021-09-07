@@ -1,5 +1,14 @@
-echo "Shell 传递参数实例！";
-echo "第一个参数为：$1";
-
-echo "参数个数为：$#";
-echo "传递的参数作为一个字符串显示：$*";
+read -p "请输入你的节点ID：" nodeid
+docker rm soga${nodeid} -f ;
+docker run --restart=on-failure --name soga${nodeid} -d \
+-v /etc/soga/:/etc/soga/ --network host \
+-e type=sspanel-uim \
+-e server_type=v2ray \
+-e api=webapi \
+-e soga_key=KYWrnJF1HDYjAweM3AMqVkXZ8RGcm9CS \
+-e webapi_url=https://panda.mba/ \
+-e webapi_key=panda \
+-e node_id=${nodeid} \
+-e cert_domain=aaaa.com \
+-e cert_mode=http \
+sprov065/soga
